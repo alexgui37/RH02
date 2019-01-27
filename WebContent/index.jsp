@@ -97,7 +97,7 @@
 			  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 				<h1 class="h2">Inicio</h1>
 				
-				<div class="btn-toolbar mb-2 mb-md-0">
+			<!-- <div class="btn-toolbar mb-2 mb-md-0">
 				  <div class="btn-group mr-2">
 				  	<button class="btn btn-sm btn-outline-secondary">Share</button>
 					<button class="btn btn-sm btn-outline-secondary">Export</button>
@@ -106,7 +106,7 @@
 					<span data-feather="calendar"></span>
 					This week
 				  </button>
-				</div>
+				</div> -->
 				
 			  </div>
 			  
@@ -114,34 +114,7 @@
 			  	LinkedList<Vaga> vagas = DAO_Dash.ListarVagasAbertas();
     			LinkedList<Candidato> cand = DAO_Dash.ListarCandidatosConvocados();
 			  %>
-			  <!-- <h2>Vagas em Aberto</h2>
-			  <div class="table-responsive">
-				<table class="table table-striped table-sm">
-				  <thead>
-					<tr>
-					  <th>Id Vaga</th>
-					  <th>Id Concurso</th>
-					  <th>Processo</th>
-					  <th>Especialidade</th>
-					  <th>Situação</th>
-					</tr>
-				  </thead>
-				  <tbody>
-				  	
-				  <%for(Vaga aux: vagas){ %>
-				  	<tr>
-					  <td><%=aux.getNum_vaga() %></td>
-					  <td><%=aux.getId_concurso() %></td>
-					  <td><%=aux.getProcesso() %></td>
-					  <td><%=aux.getEspecialidade() %></td>
-					  <td><%=aux.getStatus() %></td>
-					</tr>
-				  <%} %> 
-					
-				  </tbody>
-				</table>
-			  </div> -->
-				  
+			    
 			  <h4>Candidatos em Processo de Convocação</h4>
 			  <input type="button" onClick="document.getElementById('invisivel').setAttribute('style', '');" 
 			  value="Mostrar" />
@@ -191,6 +164,40 @@
 				</table>
 				
 			  </div>
+			  <h4>Vagas com Pendências</h4>
+			  <input type="button" onClick="document.getElementById('invisivel_v').setAttribute('style', '');" 
+			  value="Mostrar" />
+			  <input type="button" onClick="document.getElementById('invisivel_v').setAttribute('style', 'display:none');" 
+			  value="Ocultar" /><br><br>
+			  <div class="table-responsive">
+				<table class="table table-striped table-sm">
+				  <thead>
+					<tr>
+					  <th>Processo</th>
+					  <th>Perfil</th>
+					  <th>Especialidade</th>
+					  <th>Região</th>
+					  <th>Situação</th>
+					  <th>Ação</th>
+					</tr>
+				  </thead>
+				  <tbody id="invisivel_v" class="table table-striped table-sm" style="">
+				  	
+				  <%for(Vaga aux: vagas){ %>
+				  	<tr>
+					  <td><%=aux.getProcesso() %></td>
+					  <td><%=aux.getPerfil() %></td>
+					  <td><%=aux.getEspecialidade() %></td>
+					  <td><%=aux.getRegiao() %></td>
+					  <td><%=aux.getStatus() %></td>
+					  <td>Definir</td>
+					</tr>
+				  <%} %> 
+					
+				  </tbody>
+				</table>
+			  </div>
+				
         </main>
       </div>
     </div>

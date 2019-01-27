@@ -21,19 +21,24 @@ public class DAO_Dash {
 			a.iniciaBd();
 			Connection c = a.getConexao();
 			PreparedStatement ps = (PreparedStatement) c.prepareStatement(
-					"SELECT v.id_concurso_especialidade AS concurso, id_vaga AS vaga, ds_situacao AS situacao, cd_processo AS processo, ds_especialidade AS especialidade\r\n" + 
-					"FROM concurso_vaga AS v\r\n" + 
-					"JOIN concurso_vaga_situacao AS s ON v.id_situacao = s.id_vaga_situacao\r\n" + 
-					"JOIN concurso_especialidade AS e ON v.id_concurso_especialidade = e.id_concurso_especialidade\r\n" + 
-					"WHERE v.id_situacao !=1");
+					"SELECT c.id_vaga AS vaga, e.cd_processo AS processo, e.ds_perfil AS perfil, e.ds_especialidade AS especialidade,\r\n" + 
+					"e.ds_regiao AS regiao, s.ds_situacao AS situacao, e.id_concurso_especialidade AS concurso\r\n" + 
+					"FROM concurso_vaga AS c\r\n" + 
+					"JOIN concurso_especialidade AS e ON c.id_concurso_especialidade = e.id_concurso_especialidade\r\n" + 
+					"JOIN concurso_vaga_situacao AS s ON c.id_situacao = s.id_vaga_situacao\r\n" + 
+					"WHERE c.id_situacao\r\n" + 
+					"IN ( 3, 4 )");
 			ResultSet res = (ResultSet) ps.executeQuery();
 			while (res.next()) {
 				vagas.add(new Vaga(
-						res.getInt("concurso"),
 						res.getInt("vaga"),
+						res.getInt("concurso"),
 						res.getString("situacao"),
 						res.getString("processo"),
-						res.getString("especialidade")));
+						res.getString("perfil"),
+						res.getString("especialidade"),
+						res.getString("regiao"),
+						"","",""));
 			}
 
 			ps.close();

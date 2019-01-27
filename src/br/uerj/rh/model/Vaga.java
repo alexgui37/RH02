@@ -7,6 +7,7 @@ public class Vaga {
 	private String num_processo_conc;
 	private Especialidade vaga_espec;
 	private Historico_Vaga hist;
+	private String perfil;
 	private String especialidade;
 	private String regiao;
 	private String unidade;
@@ -14,13 +15,14 @@ public class Vaga {
 	private String lotacao;
 	
 	
-	public Vaga(int num_vaga, int id_concurso, String status_vaga, String num_processo_conc, String especialidade,
-			String regiao, String unidade, String localizacao, String lotacao) {
+	public Vaga(int num_vaga, int id_concurso, String status_vaga, String num_processo_conc, String perfil,
+			String especialidade, String regiao, String unidade, String localizacao, String lotacao) {
 		super();
 		this.num_vaga = num_vaga;
 		this.id_concurso = id_concurso;
 		this.status_vaga = status_vaga;
 		this.num_processo_conc = num_processo_conc;
+		this.perfil = perfil;
 		this.especialidade = especialidade;
 		this.regiao = regiao;
 		this.unidade = unidade;
@@ -89,6 +91,18 @@ public class Vaga {
 	}
 	public void setLotacao(String lotacao) {
 		this.lotacao = lotacao;
+	}
+	public String getPerfil() {
+		return perfil;
+	}
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
+	}
+	public String getLocalizacao() {
+		return localizacao;
+	}
+	public void setLocalizacao(String localizacao) {
+		this.localizacao = localizacao;
 	}
 	
 	
