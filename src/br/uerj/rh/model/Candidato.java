@@ -3,9 +3,30 @@ package br.uerj.rh.model;
 	public class Candidato extends Pessoa{
 		private String num_inscricao;
 		private Especialidade cad_esp;
-		private int classificacao;
+		private int classificacao, idVaga, idconcurso;
 		private String status;
-		private String unidade, processo, perfil, especialidade, regiao;
+		private String unidade, processo, perfil, especialidade, regiao, localizacao, lotacao, matricula;
+		
+		
+
+		public Candidato(String cpf, String nome, String status, String unidade, String processo, String perfil, String especialidade,
+				String regiao, String localizacao, String lotacao, String matricula, int idVaga, int idConcurso) {
+			super.setCPF(cpf);
+			super.setNome(nome);
+			this.status = status;
+			this.unidade = unidade;
+			this.processo = processo;
+			this.perfil = perfil;
+			this.especialidade = especialidade;
+			this.regiao = regiao;
+			this.localizacao = localizacao;
+			this.lotacao = lotacao;
+			this.matricula = matricula;
+			this.idVaga = idVaga;
+			this.idconcurso = idConcurso;
+			
+		}
+		
 		
 		public Candidato(String cpf,Especialidade esp,String s,String nome) {
 			super.setCPF(cpf);
@@ -13,8 +34,11 @@ package br.uerj.rh.model;
 			this.cad_esp = esp;
 			this.status = s;
 		}
+		
+		
 				
-		public Candidato(String cpf, String nome,String status, String unidade, String processo, String perfil, String especialidade,String regiao) {
+		public Candidato(String cpf, String nome,String status, String unidade, String processo,
+				String perfil, String especialidade,String regiao) {
 			super.setCPF(cpf);
 			super.setNome(nome);
 			this.status = status;
@@ -72,5 +96,39 @@ package br.uerj.rh.model;
 		public void setStatus(String status) {
 			this.status = status;
 		}
-		
+		public String getMatricula() {
+			return matricula;
+		}
+
+		public void setMatricula(String matricula) {
+			this.matricula = matricula;
+		}
+
+		public String getLocalizacao() {
+			return localizacao;
+		}
+
+		public void setLocalizacao(String localizacao) {
+			this.localizacao = localizacao;
+		}
+
+		public String getLotacao() {
+			return lotacao;
+		}
+
+		public void setLotacao(String lotacao) {
+			this.lotacao = lotacao;
+		}
+		public int getIdVaga() {
+			return idVaga;
+		}
+		public void setIdVaga(int idVaga) {
+			this.idVaga = idVaga;
+		}
+		public int getIdconcurso() {
+			return idconcurso;
+		}
+		public void setIdconcurso(int idconcurso) {
+			this.idconcurso = idconcurso;
+		}
 	}

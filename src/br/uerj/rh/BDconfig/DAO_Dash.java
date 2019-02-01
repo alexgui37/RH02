@@ -12,7 +12,7 @@ import br.uerj.rh.BDconfig.ConexaoBD;
  
 public class DAO_Dash {
 	
-	//Lista vagas desocupadas
+	//Lista vagas com pendencias
 	public static synchronized LinkedList<Vaga> ListarVagasAbertas() {
 		try {
 			LinkedList<Vaga> vagas = new LinkedList<Vaga>();
@@ -21,11 +21,13 @@ public class DAO_Dash {
 			a.iniciaBd();
 			Connection c = a.getConexao();
 			PreparedStatement ps = (PreparedStatement) c.prepareStatement(
-					"SELECT c.id_vaga AS vaga, e.cd_processo AS processo, e.ds_perfil AS perfil, e.ds_especialidade AS especialidade,\r\n" + 
-					"e.ds_regiao AS regiao, s.ds_situacao AS situacao, e.id_concurso_especialidade AS concurso\r\n" + 
+					"SELECT c.id_vaga AS vaga, e.cd_processo AS processo, e.ds_perfil AS perfil,\r\n" + 
+					"e.ds_especialidade AS especialidade, e.ds_regiao AS regiao, s.ds_situacao AS situacao,\r\n" + 
+					"e.id_concurso_especialidade AS concurso, p.dt_validade_concurso AS validade\r\n" + 
 					"FROM concurso_vaga AS c\r\n" + 
 					"JOIN concurso_especialidade AS e ON c.id_concurso_especialidade = e.id_concurso_especialidade\r\n" + 
 					"JOIN concurso_vaga_situacao AS s ON c.id_situacao = s.id_vaga_situacao\r\n" + 
+					"JOIN concurso_processo AS p ON p.cd_processo = e.cd_processo\r\n" + 
 					"WHERE c.id_situacao\r\n" + 
 					"IN ( 3, 4 )");
 			ResultSet res = (ResultSet) ps.executeQuery();
@@ -38,7 +40,8 @@ public class DAO_Dash {
 						res.getString("perfil"),
 						res.getString("especialidade"),
 						res.getString("regiao"),
-						"","",""));
+						"","","",
+						res.getDate("validade")));
 			}
 
 			ps.close();
@@ -65,7 +68,7 @@ public class DAO_Dash {
 					"c.ds_localizacao AS localiz, c.nm_nome_completo AS nome, c.id_Matricula AS matricula,\r\n" + 
 					"c.dt_portaria_Nomeacao AS datap,c.ds_codigo_portaria AS portaria, c.id_VAGA AS vaga,\r\n" + 
 					"e.cd_processo AS processo, e.ds_perfil AS perfil, e.ds_especialidade AS especialidade, e.ds_regiao AS regiao,\r\n" + 
-					"s.ds_situacao AS situacao\r\n" + 
+					"s.ds_situacao AS situacao, c.id_concurso_especialidade AS idConcurso\r\n" + 
 					"FROM concurso_candidato AS c\r\n" + 
 					"JOIN concurso_especialidade AS e ON e.id_concurso_especialidade = c.id_concurso_especialidade\r\n" + 
 					"JOIN concurso_candidato_situacao_tipo AS s ON c.id_situacao = s.id_candidato_situacao\r\n" + 
@@ -81,7 +84,12 @@ public class DAO_Dash {
 						res.getString("processo"),
 						res.getString("perfil"),
 						res.getString("especialidade"),
-						res.getString("regiao")));
+						res.getString("regiao"),
+						res.getString("localiz"),
+						res.getString("lotacao"),
+						res.getString("matricula"),
+						res.getInt("vaga"),
+						res.getInt("idConcurso")));
 			}
 
 			ps.close();

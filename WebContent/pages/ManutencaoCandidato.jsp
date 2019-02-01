@@ -123,16 +123,16 @@
 										<td><input type="text" class="form-control" value="<%=nome %>" 
 										id="nome" name="nome" readonly size="60"></td>
 								</tr>
-								<tr>
+								 <tr>
 										<td>Processo:</td>
 										<td><input type="text" class="form-control" value="<%=processo %>" 
 										id="processo" name="processo" readonly></td>
 								</tr>
-								<tr>
+								<!-- <tr>
 										<td>Unidade:</td>
 										<td><input type="text" class="form-control" value="<%=unidade %>" 
 										id="unidade" name="unidade" readonly></td>
-								</tr>
+								</tr>-->
 								<tr>
 										<td>Perfil:</td>
 										<td><input type="text" class="form-control" value="<%=perfil %>" 
@@ -157,8 +157,8 @@
 							</table><br>
 					
 							<%if(stAtual.equals("Nomeado")||stAtual.equals("Eliminado")||stAtual.equals("Exonerado")){
-								//out.print("Candidatos com situação EXONERADO ou ELIMINADO não podem ser alterados.<br>"+
-									//	  "Candidatos NOMEADOS devem ser alterados na página MANUTENÇÃO DE FUNCIONÁRIOS.");
+								out.print("Candidatos com situação EXONERADO ou ELIMINADO não podem ser alterados.<br>"+
+										  "Candidatos NOMEADOS devem ser alterados na página MANUTENÇÃO DE FUNCIONÁRIOS.");
 							}
 							else 
 								if(request.getParameter("novaSituacao") != null){
@@ -180,17 +180,26 @@
 								else if(novaSituacao.equals("Nomeado")){%>
 									<label for="inputEmail4">Nova Situação</label>
 									<input type="text" class="form-control" value="<%=novaSituacao %>" 
-									id="novaSituacao" name="novaSituacao" readonly><br>
+										id="novaSituacao" name="novaSituacao" readonly><br>
 									<label for="inputEmail4">Portaria</label>
 									<input type="text" class="form-control" id="portaria" name="portaria" required 
-									placeholder="Informe o código da portaria de nomeação do candidato"><br>
+										placeholder="Informe o código da portaria de nomeação do candidato"><br>
 									<label for="inputEmail4">Data da Portaria</label>
 									<input class="form-control" type="date" id="data" name ="data" required value=""><br>
+									<label for="inputEmail4">Unidade</label>
+									<input type="text" class="form-control" id="unidade" name="unidade" required 
+										placeholder="Informe a unidade do funcionário"><br>
+									<label for="inputEmail4">Lotação</label>
+									<input type="text" class="form-control" id="lotacao" name="lotacao" required 
+										placeholder="Informe a lotação do funcionário"><br>
+									<label for="inputEmail4">Localização</label>
+									<input type="text" class="form-control" id="localiz" name="localiz" required 
+										placeholder="Informe a localização do funcionário"><br>
 									<span>
 										<input type="submit" class="btn btn-primary" id="enviar" name="enviar" 
-										value="Enviar" style="margin:15;"/>
+											value="Enviar" style="margin:15;"/>
 										<input type="button" class="btn btn-danger" value="Voltar" 
-										onClick="history.go(-1)" style="margin:15;"/>
+											onClick="history.go(-1)" style="margin:15;"/>
 									</span>
 							<%	}
 							}

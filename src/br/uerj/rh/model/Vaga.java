@@ -1,5 +1,7 @@
 package br.uerj.rh.model;
 
+import java.util.Date;
+
 public class Vaga {
 	private int num_vaga;
 	private int id_concurso;
@@ -13,10 +15,12 @@ public class Vaga {
 	private String unidade;
 	private String localizacao;
 	private String lotacao;
+	private Date validade;
+	
 	
 	
 	public Vaga(int num_vaga, int id_concurso, String status_vaga, String num_processo_conc, String perfil,
-			String especialidade, String regiao, String unidade, String localizacao, String lotacao) {
+			String especialidade, String regiao, String unidade, String localizacao, String lotacao, Date validade) {
 		super();
 		this.num_vaga = num_vaga;
 		this.id_concurso = id_concurso;
@@ -28,6 +32,7 @@ public class Vaga {
 		this.unidade = unidade;
 		this.localizacao = localizacao;
 		this.lotacao = lotacao;
+		this.validade = validade;
 	}
 	public Vaga(int id_concurso, int num_vaga, String status_vaga, String num_processo_conc, String especialidade) {
 		super();
@@ -104,6 +109,11 @@ public class Vaga {
 	public void setLocalizacao(String localizacao) {
 		this.localizacao = localizacao;
 	}
-	
+	public Date getValidade() {
+		return validade;
+	}
+	public void setValidade(Date validade) {
+		this.validade = validade;
+	}
 	
 }
