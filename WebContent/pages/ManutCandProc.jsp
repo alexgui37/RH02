@@ -14,7 +14,11 @@
 								  "&perfil="+request.getParameter("perfil")+
 								  "&espec="+request.getParameter("espec")+
 								  "&regiao="+request.getParameter("regiao")+
-								  "&situacao="+request.getParameter("situacao"));
+								  "&situacao="+request.getParameter("situacao")+
+								  "&loacaliz="+request.getParameter("loacaliz")+
+								  "&lotacao="+request.getParameter("lotacao")+
+								  "&vaga="+request.getParameter("vaga")+
+								  "&idConcurso="+request.getParameter("idConcurso"));
 								
 		}
 		String cpf, nome, processo, perfil, espec, regiao, stAtual, stNova, matricula, 

@@ -317,6 +317,7 @@
 									value="Enviar" style="margin:15;"/>
 								<input type="button" class="btn btn-danger" value="Voltar" 
 									onClick="history.go(-1)" style="margin:15;"/>
+								<a class="btn btn-secondary" style="margin-left:25px;" href="nomeacao_bloco.jsp">Nomear em Bloco</a>
 							</span>	
 										
 						</div>		

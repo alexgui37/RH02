@@ -117,10 +117,11 @@
 			  %>
 			    
 			  <h4>Candidatos em Processo de Convocação</h4>
-			  <input type="button" onClick="document.getElementById('invisivel').setAttribute('style', '');" 
+			  <input type="button" class="btn btn-primary" onClick="document.getElementById('invisivel').setAttribute('style', '');" 
 			  value="Mostrar" />
-			  <input type="button" onClick="document.getElementById('invisivel').setAttribute('style', 'display:none');" 
-			  value="Ocultar" /><br><br>
+			  <input type="button" class="btn btn-danger" onClick="document.getElementById('invisivel').setAttribute('style', 'display:none');" 
+			  value="Ocultar" />
+			  <a class="btn btn-secondary" style="margin-left:25px;" href="pages/nomeacao_bloco.jsp">Nomear em Bloco</a><br><br>
 			  <div class="table-responsive">
 				<table class="table table-striped table-sm">
 				  <thead>
@@ -171,9 +172,9 @@
 				
 			  </div>
 			  <h4>Vagas com Pendências</h4>
-			  <input type="button" onClick="document.getElementById('invisivel_v').setAttribute('style', '');" 
+			  <input type="button" class="btn btn-primary" onClick="document.getElementById('invisivel_v').setAttribute('style', '');" 
 			  value="Mostrar" />
-			  <input type="button" onClick="document.getElementById('invisivel_v').setAttribute('style', 'display:none');" 
+			  <input type="button" class="btn btn-danger" onClick="document.getElementById('invisivel_v').setAttribute('style', 'display:none');" 
 			  value="Ocultar" /><br><br>
 			  <div class="table-responsive">
 				<table class="table table-striped table-sm">
