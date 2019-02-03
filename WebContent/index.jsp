@@ -140,31 +140,31 @@
 				  <script>
 				  	//document.getElementById('invisivel').setAttribute('style', 'display:none');
 				  </script>
-				  <%if (cand!=null){ %>
-				  <%for(Candidato aux2: cand){//Cada iteracao gera uma linha na tabela%>
-					<tr>
-					  <td><a href="pages/ManutencaoCandidato.jsp?cpf=<%=aux2.getCPF()%>
-					  &nome=<%=aux2.getNome()%>
-					  &processo=<%=aux2.getProcesso() %>
-					  &unidade=<%=aux2.getUnidade() %>
-					  &lotacao=<%=aux2.getLotacao() %>
-					  &localiz=<%=aux2.getLocalizacao() %>
-					  &idConcurso=<%=aux2.getIdconcurso() %>
-					  &vaga=<%=aux2.getIdVaga() %>
-					  &perfil=<%=aux2.getPerfil() %>
-					  &espec=<%=aux2.getEspecialidade() %>
-					  &regiao=<%=aux2.getRegiao() %>
-					  &situacao=<%=aux2.getStatus() %>" 
-					  title="Editar situação do candidato"><%=aux2.getNome() %></a></td>
-					  <!-- <td><%=aux2.getCPF() %></td> -->
-					  <td><%=aux2.getProcesso() %></td>
-					  <td><%=aux2.getUnidade() %></td>
-					  <td><%=aux2.getPerfil() %></td>
-					  <td><%=aux2.getEspecialidade() %></td>
-					  <td><%=aux2.getRegiao() %></td>
-					  <td><%=aux2.getStatus() %></td>
-					</tr>
-				  <%}%>
+				  <%if (cand!=null){%>
+					  <%for(Candidato aux2: cand){//Cada iteracao gera uma linha na tabela%>
+						<tr>
+						  <td><a href="pages/ManutencaoCandidato.jsp?cpf=<%=aux2.getCPF()%>
+							  &nome=<%=aux2.getNome()%>
+							  &processo=<%=aux2.getProcesso()%>
+							  &unidade=<%=aux2.getUnidade()%>
+							  &lotacao=<%=aux2.getLotacao()%>
+							  &localiz=<%=aux2.getLocalizacao()%>
+							  &idConcurso=<%=aux2.getIdconcurso()%>
+							  &vaga=<%=aux2.getIdVaga()%>
+							  &perfil=<%=aux2.getPerfil()%>
+							  &espec=<%=aux2.getEspecialidade()%>
+							  &regiao=<%=aux2.getRegiao()%>
+							  &situacao=<%=aux2.getStatus()%>" 
+						  title="Editar situação do candidato"><%=aux2.getNome() %></a></td>
+						  <!-- <td><%=aux2.getCPF() %></td> -->
+						  <td><%=aux2.getProcesso() %></td>
+						  <td><%=aux2.getUnidade() %></td>
+						  <td><%=aux2.getPerfil() %></td>
+						  <td><%=aux2.getEspecialidade() %></td>
+						  <td><%=aux2.getRegiao() %></td>
+						  <td><%=aux2.getStatus() %></td>
+						</tr>
+					  <%}%>
 				  <%} %>		
 				  </tbody>
 				</table>
