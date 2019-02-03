@@ -3,7 +3,7 @@ package br.uerj.rh.model;
 	public class Candidato extends Pessoa{
 		private String num_inscricao;
 		private Especialidade cad_esp;
-		private int classificacao, idVaga, idconcurso;
+		private int classificacao, idVaga, idconcurso, empate;
 		private String status;
 		private String unidade, processo, perfil, especialidade, regiao, localizacao, lotacao, matricula;
 		
@@ -26,8 +26,20 @@ package br.uerj.rh.model;
 			this.idconcurso = idConcurso;
 			
 		}
-		
-		
+				
+		public Candidato(String cpf, String nome, int idconcurso, int classificacao, int empate, String processo, String perfil,
+				String especialidade, String regiao) {
+			super.setCPF(cpf);
+			super.setNome(nome);
+			this.classificacao = classificacao;
+			this.idconcurso = idconcurso;
+			this.empate = empate;
+			this.processo = processo;
+			this.perfil = perfil;
+			this.especialidade = especialidade;
+			this.regiao = regiao;
+		}
+
 		public Candidato(String cpf,Especialidade esp,String s,String nome) {
 			super.setCPF(cpf);
 			super.setNome(nome);
@@ -48,6 +60,16 @@ package br.uerj.rh.model;
 			this.especialidade = especialidade;
 			this.regiao = regiao;
 		}
+
+		
+		public int getEmpate() {
+			return empate;
+		}
+
+		public void setEmpate(int empate) {
+			this.empate = empate;
+		}
+
 
 		public String getUnidade() {
 			return unidade;

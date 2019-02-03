@@ -14,7 +14,7 @@ public class DAO_user {
 			ConexaoBD a = new ConexaoBD();
 			a.iniciaBd();
 			Connection c = a.getConexao();
-			PreparedStatement ps = (PreparedStatement) c.prepareStatement("SELECT * FROM sistema_usuarios");
+			PreparedStatement ps = (PreparedStatement) c.prepareStatement("SELECT * FROM sistema_usuarios WHERE usuario = '"+ usuario + "'");
 			//ps.setString(1, usuario);		
 			ResultSet res1 = (ResultSet) ps.executeQuery();
 			Usuario user = null;

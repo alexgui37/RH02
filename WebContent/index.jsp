@@ -129,7 +129,6 @@
 					  <th>Nome</th>
 					  <!-- <th>CPF</th> -->
 					  <th>Processo</th>
-					  <th>Unidade</th>
 					  <th>Perfil</th>
 					  <th>Especialidade</th>
 					  <th>Região</th>
@@ -159,7 +158,6 @@
 						  title="Editar situação do candidato"><%=aux2.getNome() %></a></td>
 						  <!-- <td><%=aux2.getCPF() %></td> -->
 						  <td><%=aux2.getProcesso() %></td>
-						  <td><%=aux2.getUnidade() %></td>
 						  <td><%=aux2.getPerfil() %></td>
 						  <td><%=aux2.getEspecialidade() %></td>
 						  <td><%=aux2.getRegiao() %></td>
