@@ -2,7 +2,7 @@ package br.uerj.rh.BDconfig;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
+import java.util.*;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
@@ -214,31 +214,46 @@ public class DAO_mCand {
 	}
 	public static synchronized Candidato SelecionarCandidato(int idConcurso) {
 		try {
-			LinkedList<String> Lproc = new LinkedList<String>();
-
+			Candidato cand = null;
 			ConexaoBD a = new ConexaoBD();
 			a.iniciaBd();
 			Connection c = a.getConexao();
 			PreparedStatement ps = (PreparedStatement) c.prepareStatement(
-					"SELECT  cd_processo FROM  concurso_processo WHERE  dt_validade_concurso > NOW( )"
+					"SET @pos = (SELECT MIN(nu_candidato_posicao)\r\n" + 
+					"FROM concurso_candidato\r\n" + 
+					"WHERE id_concurso_especialidade = "+idConcurso+"\r\n" + 
+					"AND id_situacao = 1);\r\n" + 
+					"\r\n" + 
+					"SELECT id_concurso_especialidade AS idConcurso, cd_chave_candidato AS idCand,\r\n" + 
+					"nu_candidato_posicao AS pos, nu_candidato_posicao_empate AS empate, nm_nome_completo AS nome\r\n" + 
+					"FROM  concurso_candidato \r\n" + 
+					"WHERE  nu_candidato_posicao = @pos \r\n" + 
+					"AND  id_concurso_especialidade = "+idConcurso+";"
 			);
 
 			ResultSet res = (ResultSet) ps.executeQuery();
 			while (res.next()) {
-				Lproc.add(res.getString("cd_processo"));
+				cand= new Candidato(
+						res.getString("idCand"),
+						res.getString("nome"),
+						res.getInt("idConcurso"),
+						res.getInt("pos"),
+						res.getInt("empate"),
+						"","","",""
+						);
 			}
 
 			ps.close();
 			c.close();
 			a.fechaBd();
-			return Lproc;
+			return cand;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	public static synchronized boolean salvarDesempata(int idConcurso, int idCand, int pos){
+	public static synchronized boolean salvarDesempata(int idConcurso, String idCand, int pos){
 		try{
 			ConexaoBD a = new ConexaoBD();
 			a.iniciaBd();
@@ -251,7 +266,7 @@ public class DAO_mCand {
 			
 			ps.setInt(1, pos);
 			ps.setInt(2, idConcurso);
-			ps.setInt(3, idCand);
+			ps.setString(3, idCand);
 			ps.executeUpdate();
 			ps.close();
 			c.close();
@@ -262,4 +277,90 @@ public class DAO_mCand {
 			return false;
 		}
 	}
+	public static synchronized Date SelecionarValidadeProcesso(String processo) {
+		try {
+			Date data = null;
+
+			ConexaoBD a = new ConexaoBD();
+			a.iniciaBd();
+			Connection c = a.getConexao();
+			PreparedStatement ps = (PreparedStatement) c.prepareStatement(
+					"SELECT  dt_validade_concurso AS data\r\n" + 
+					"FROM  concurso_processo \r\n" + 
+					"WHERE  cd_processo =  '"+processo+"'"
+			);
+
+			ResultSet res = (ResultSet) ps.executeQuery();
+			while (res.next()) {
+				data = res.getDate("data");
+			}
+
+			ps.close();
+			c.close();
+			a.fechaBd();
+			return data;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public static synchronized int sepecionarBanco (int idConcurso) {
+		try {
+			int banco = 0;
+
+			ConexaoBD a = new ConexaoBD();
+			a.iniciaBd();
+			Connection c = a.getConexao();
+			PreparedStatement ps = (PreparedStatement) c.prepareStatement(
+					"SELECT  nu_banco_restante AS banco\r\n" + 
+					"FROM  concurso_especialidade \r\n" + 
+					"WHERE  id_concurso_especialidade = '"+idConcurso+"'"
+			);
+
+			ResultSet res = (ResultSet) ps.executeQuery();
+			while (res.next()) {
+				banco = res.getInt("banco");
+			}
+
+			ps.close();
+			c.close();
+			a.fechaBd();
+			return banco;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	public static synchronized boolean confirmaSelecao(int idConcurso, String idCand, int vaga, String unidade, String lotacao, String localiz){
+		try{
+			ConexaoBD a = new ConexaoBD();
+			a.iniciaBd();
+			Connection c = a.getConexao();
+			PreparedStatement ps = (PreparedStatement) c.prepareStatement(
+					"UPDATE concurso_especialidade SET nu_banco_restante = nu_banco_restante-1 WHERE id_concurso_especialidade =?;\r\n" + 
+					"\r\n" + 
+					"UPDATE concurso_candidato SET id_situacao=3, ds_Unidade=?, ds_lotacao=?, ds_localizacao=?, id_VAGA=? \r\n" + 
+					"WHERE cd_chave_candidato=? AND id_concurso_especialidade=?;"
+			);
+			ps.setInt(1, idConcurso);
+			ps.setString(2, unidade);
+			ps.setString(3, lotacao);
+			ps.setString(4, localiz);
+			ps.setInt(5, vaga);
+			ps.setString(6, idCand);
+			ps.setInt(7, idConcurso);
+			
+			ps.executeUpdate();
+			ps.close();
+			c.close();
+			a.fechaBd();
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 }

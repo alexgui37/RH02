@@ -173,7 +173,16 @@
 			  <input type="button" class="btn btn-primary" onClick="document.getElementById('invisivel_v').setAttribute('style', '');" 
 			  value="Mostrar" />
 			  <input type="button" class="btn btn-danger" onClick="document.getElementById('invisivel_v').setAttribute('style', 'display:none');" 
-			  value="Ocultar" /><br><br>
+			  value="Ocultar" />
+			   <%
+						String mensagem2 = (String) session.getAttribute("mensagem2");
+						if(mensagem2 != null){%>
+							<font color="red" style="margin-left:25px;"><%=mensagem2 %></font>
+						<%	session.setAttribute("mensagem2", null);
+						}
+				  %>
+			  
+			  <br><br>
 			  <div class="table-responsive">
 				<table class="table table-striped table-sm">
 				  <thead>
@@ -197,7 +206,9 @@
 					  <td><%=aux.getRegiao() %></td>
 					  <td><%=aux.getStatus() %></td>
 					  <td><%=new SimpleDateFormat("dd/MM/yyyy").format(aux.getValidade()) %></td>
-					  <td><a class="btn btn-secondary" href="#">Selecionar</a></td>
+					  <td><a class="btn btn-secondary" href="pages/selecao.jsp?idVaga=<%=aux.getNum_vaga() %>
+					  										&idConcurso=<%=aux.getId_concurso() %>
+					  										&processo=<%=aux.getProcesso() %>">Selecionar</a></td>
 					  <td>	<%
 					  		if(aux.getStatus().equals("Pendente de Desempate")){%>
 					  			<a class="btn btn-secondary" href="pages/desempate.jsp?idConcurso=<%=aux.getId_concurso() %>">Desempatar</a>

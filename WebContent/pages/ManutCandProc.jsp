@@ -5,6 +5,9 @@
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>	
 <%
+		
+
+
 		if(request.getParameter("novaSituacao")== null){
 			session.setAttribute("mensagem", "É NECESSÁRIO SELECIONAR UMA NOVA SITUAÇÃO PARA PROSSEGUIR!");
 			response.sendRedirect("ManutencaoCandidato.jsp?cpf="+request.getParameter("cpf")+
@@ -79,7 +82,7 @@
 				else{
 					session.setAttribute("mensagem", "Não foi possível conectar ao banco de dados!\n"+
 							"Tente novamente, se o problema persistir entre em contato com o suporte."
-						);
+					);
 				}
 				response.sendRedirect("ManutencaoCandidato.jsp");
 			}
@@ -115,6 +118,29 @@
 					hist = DAO_mCand.alterarStatusVaga(idVaga, 4);
 					
 					//INCLUIR O METODO DE SELECAO DE CANDIDATO
+					Date hoje = new SimpleDateFormat("yyyy-MM-dd").format(getTime());
+					Date validade = DAO_mCand.SelecionarValidadeProcesso(processo);
+					if(validade.before(hoje)){
+						hist = DAO_mCand.alterarStatusVaga(idVaga, 5);
+						session.setAttribute("mensagem2", "Não foi possível selecionar candidado - Concurso expirado!");
+					}
+					else if(DAO_mCand.sepecionarBanco(idConcurso) < 1){
+						hist = DAO_mCand.alterarStatusVaga(idVaga, 5);
+						session.setAttribute("mensagem2", "Não foi possível selecionar candidado - Banco Esgotado!");
+					}
+					else{
+						Candidato cand = DAO_mCand.SelecionarCandidato(idConcurso);
+						if(cand.getEmpate() > 0){
+							hist = DAO_mCand.alterarStatusVaga(idVaga, 3);
+							session.setAttribute("mensagem2", "Não foi possível selecionar candidado - Necessário realizar desempate!");
+						}
+						else if(DAO_mCand.confirmaSelecao(idConcurso, cpf, idVaga, unidade, lotacao, localiz)){
+							hist = DAO_mCand.escreverHistoricoCand(idConcurso, cpf, 1, 3, "");
+							hist = DAO_mCand.escreverHistoricoVaga(idVaga, cpf, 3);
+							hist = DAO_mCand.alterarStatusVaga(idVaga, 2);
+							session.setAttribute("mensagem2", "O candidato "+nome+" foi selecionado para a vaga!");
+						}
+					}
 				}	
 				
 			}
@@ -123,7 +149,7 @@
 						"Tente novamente, se o problema persistir entre em contato com o suporte."
 					);
 			}
-			
+			response.sendRedirect("ManutencaoCandidato.jsp");
 		}
 		else if(stNova.equals("Eliminado")){
 			if(DAO_mCand.alterarEliminadoApto(cpf, 7, null, 0)){
@@ -138,6 +164,29 @@
 					hist = DAO_mCand.escreverHistoricoCand(idConcurso, cpf, 8, 5, "");
 				}
 				//INCLUIR O METODO DE SELECAO DE CANDIDATO
+				Date hoje = new SimpleDateFormat("yyyy-MM-dd").format(getTime());
+				Date validade = DAO_mCand.SelecionarValidadeProcesso(processo);
+				if(validade.before(hoje)){
+					hist = DAO_mCand.alterarStatusVaga(idVaga, 5);
+					session.setAttribute("mensagem2", "Não foi possível selecionar candidado - Concurso expirado!");
+				}
+				else if(DAO_mCand.sepecionarBanco(idConcurso) < 1){
+					hist = DAO_mCand.alterarStatusVaga(idVaga, 5);
+					session.setAttribute("mensagem2", "Não foi possível selecionar candidado - Banco Esgotado!");
+				}
+				else{
+					Candidato cand = DAO_mCand.SelecionarCandidato(idConcurso);
+					if(cand.getEmpate() > 0){
+						hist = DAO_mCand.alterarStatusVaga(idVaga, 3);
+						session.setAttribute("mensagem2", "Não foi possível selecionar candidado - Necessário realizar desempate!");
+					}
+					else if(DAO_mCand.confirmaSelecao(idConcurso, cpf, idVaga, unidade, lotacao, localiz)){
+						hist = DAO_mCand.escreverHistoricoCand(idConcurso, cpf, 2, 3, "");
+						hist = DAO_mCand.escreverHistoricoVaga(idVaga, cpf, 3);
+						hist = DAO_mCand.alterarStatusVaga(idVaga, 2);
+						session.setAttribute("mensagem2", "O candidato "+nome+" foi selecionado para a vaga!");
+					}
+				}
 				
 			}
 			else{
