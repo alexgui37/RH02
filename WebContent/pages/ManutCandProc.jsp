@@ -60,6 +60,7 @@
 					boolean hist = DAO_mCand.escreverHistoricoCand(idConcurso, cpf, 8, 4, portaria);
 					hist = DAO_mCand.escreverHistoricoVaga(idVaga, cpf, 4);
 					hist = DAO_mCand.alterarStatusVaga(idVaga, 1);
+					hist = DAO_mCand.atualizarBancoNomeacao(idConcurso);
 					session.setAttribute("mensagem", "Nomeação concluída com sucesso!");
 				}
 				else{
@@ -129,6 +130,7 @@
 				session.setAttribute("mensagem", "Situação alterada com sucesso!");
 				boolean hist = DAO_mCand.escreverHistoricoVaga(idVaga, cpf, 7);
 				hist = DAO_mCand.alterarStatusVaga(idVaga, 4);
+				hist = DAO_mCand.atualizarBancoEliminacao(idConcurso)
 				if(stAtual.equals("Convocado")){
 					hist = DAO_mCand.escreverHistoricoCand(idConcurso, cpf, 2, 7, "");
 				}

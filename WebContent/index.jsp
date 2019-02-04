@@ -197,7 +197,12 @@
 					  <td><%=aux.getRegiao() %></td>
 					  <td><%=aux.getStatus() %></td>
 					  <td><%=new SimpleDateFormat("dd/MM/yyyy").format(aux.getValidade()) %></td>
-					  <td>Definir</td>
+					  <td><a class="btn btn-secondary" href="#">Selecionar</a></td>
+					  <td>	<%
+					  		if(aux.getStatus().equals("Pendente de Desempate")){%>
+					  			<a class="btn btn-secondary" href="pages/desempate.jsp?idConcurso=<%=aux.getId_concurso() %>">Desempatar</a>
+					  		<%}%>
+					  </td>
 					</tr>
 				  <%} %> 
 					

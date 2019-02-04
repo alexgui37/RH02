@@ -168,4 +168,98 @@ public class DAO_mCand {
 			return false;
 		}	
 	}
+	public static synchronized boolean atualizarBancoNomeacao(int idConcurso){
+		try{
+			ConexaoBD a = new ConexaoBD();
+			a.iniciaBd();
+			Connection c = a.getConexao();
+			PreparedStatement ps = (PreparedStatement) c.prepareStatement(
+					"UPDATE  concurso_especialidade \r\n" + 
+					"SET  nu_vacancia =  nu_vacancia -1,nu_nomeados =  nu_nomeados +1\r\n" + 
+					"WHERE  id_concurso_especialidade = ?"
+			);
+			
+			ps.setInt(1, idConcurso);
+			ps.executeUpdate();
+			ps.close();
+			c.close();
+			a.fechaBd();
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+	public static synchronized boolean atualizarBancoEliminacao(int idConcurso){
+		try{
+			ConexaoBD a = new ConexaoBD();
+			a.iniciaBd();
+			Connection c = a.getConexao();
+			PreparedStatement ps = (PreparedStatement) c.prepareStatement(
+					"UPDATE concurso_especialidade\r\n" + 
+					"SET nu_eliminados_exonerados = nu_eliminados_exonerados +1\r\n" + 
+					"WHERE id_concurso_especialidade = ?"
+			);
+			
+			ps.setInt(1, idConcurso);
+			ps.executeUpdate();
+			ps.close();
+			c.close();
+			a.fechaBd();
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+	public static synchronized Candidato SelecionarCandidato(int idConcurso) {
+		try {
+			LinkedList<String> Lproc = new LinkedList<String>();
+
+			ConexaoBD a = new ConexaoBD();
+			a.iniciaBd();
+			Connection c = a.getConexao();
+			PreparedStatement ps = (PreparedStatement) c.prepareStatement(
+					"SELECT  cd_processo FROM  concurso_processo WHERE  dt_validade_concurso > NOW( )"
+			);
+
+			ResultSet res = (ResultSet) ps.executeQuery();
+			while (res.next()) {
+				Lproc.add(res.getString("cd_processo"));
+			}
+
+			ps.close();
+			c.close();
+			a.fechaBd();
+			return Lproc;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public static synchronized boolean salvarDesempata(int idConcurso, int idCand, int pos){
+		try{
+			ConexaoBD a = new ConexaoBD();
+			a.iniciaBd();
+			Connection c = a.getConexao();
+			PreparedStatement ps = (PreparedStatement) c.prepareStatement(
+					"UPDATE concurso_candidato SET nu_candidato_posicao = ?, nu_candidato_posicao_empate = 0\r\n" + 
+					"WHERE id_concurso_especialidade = ?\r\n" + 
+					"AND cd_chave_candidato = ?"
+			);
+			
+			ps.setInt(1, pos);
+			ps.setInt(2, idConcurso);
+			ps.setInt(3, idCand);
+			ps.executeUpdate();
+			ps.close();
+			c.close();
+			a.fechaBd();
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
