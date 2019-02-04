@@ -118,7 +118,7 @@
 					hist = DAO_mCand.alterarStatusVaga(idVaga, 4);
 					
 					//INCLUIR O METODO DE SELECAO DE CANDIDATO
-					Date hoje = new SimpleDateFormat("yyyy-MM-dd").format(getTime());
+					Date hoje = getTime();
 					Date validade = DAO_mCand.SelecionarValidadeProcesso(processo);
 					if(validade.before(hoje)){
 						hist = DAO_mCand.alterarStatusVaga(idVaga, 5);

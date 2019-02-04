@@ -6,7 +6,7 @@
 <%@ page import="br.uerj.rh.BDconfig.*" %>
 
 <% 
-	int idCand = Integer.parseInt(request.getParameter("cpf").replaceAll(" ", ""));
+	String idCand = request.getParameter("cpf");
 	int idConcurso = Integer.parseInt(request.getParameter("idConcurso").replaceAll(" ", ""));
 	int pos = Integer.parseInt(request.getParameter("pos").replaceAll(" ", ""));
 	String nome = request.getParameter("nome");

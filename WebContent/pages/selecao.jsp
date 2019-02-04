@@ -31,10 +31,10 @@
 				session.setAttribute("mensagem2", "Não foi possível selecionar candidado - Necessário realizar desempate!");
 			}
 			else if(DAO_mCand.confirmaSelecao(idConcurso, cand.getCPF(), idVaga, unidade, lotacao, localiz)){
-				hist = DAO_mCand.escreverHistoricoCand(idConcurso, cpf, 2, 3, "");
-				hist = DAO_mCand.escreverHistoricoVaga(idVaga, cpf, 3);
+				hist = DAO_mCand.escreverHistoricoCand(idConcurso, cand.getCPF(), 2, 3, "");
+				hist = DAO_mCand.escreverHistoricoVaga(idVaga, cand.getCPF(), 3);
 				hist = DAO_mCand.alterarStatusVaga(idVaga, 2);
-				session.setAttribute("mensagem2", "O candidato "+nome+" foi selecionado para a vaga!");
+				session.setAttribute("mensagem2", "O candidato "+cand.getNome()+" foi selecionado para a vaga!");
 			}
 		}
 
